@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.myreminders_garciadopcio"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.myreminders_garciadopcio"
