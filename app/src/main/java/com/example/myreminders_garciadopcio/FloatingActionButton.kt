@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -27,7 +28,7 @@ fun MyFLoadinActionButtonAdd(navHostController: NavHostController){
             },
             containerColor = Color2,
             modifier = Modifier
-                .padding(horizontal = 10.dp, vertical = 10.dp)
+                .padding(horizontal = 15.dp, vertical = 15.dp)
                 .height(50.dp)
                 .width(50.dp))
         {
@@ -36,31 +37,8 @@ fun MyFLoadinActionButtonAdd(navHostController: NavHostController){
                 imageVector = Icons.Filled.Add,
                 contentDescription = "New Reminders",
                 tint = Color.Black,
+                modifier = Modifier.size(30.dp)
                 )
-        }
-
-    }
-}
-
-@Composable
-fun MyFLoadinActionButtonBack(navHostController: NavHostController){
-    Box (Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
-        FloatingActionButton(
-            onClick = {
-                navHostController.navigate("Reminders_create")
-            },
-            containerColor = Color2,
-            modifier = Modifier
-                .padding(horizontal = 10.dp, vertical = 10.dp)
-                .height(50.dp)
-                .width(50.dp))
-        {
-
-            Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = "Come back Reminders",
-                tint = Color.Black,
-            )
         }
 
     }

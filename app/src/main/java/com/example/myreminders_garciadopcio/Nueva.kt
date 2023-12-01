@@ -1,6 +1,7 @@
 package com.example.myreminders_garciadopcio
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,31 +14,41 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults.outlinedTextFieldC
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun new(navHostController: NavHostController){
+
+    var snackbarVisible by remember { mutableStateOf(false) }
+    var context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     Scaffold (
+        snackbarHost ={ },
         topBar = { TopAppBarNew(navHostController = navHostController) }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(top = it.calculateTopPadding())
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = it.calculateTopPadding())
         ) {
             var title by remember { mutableStateOf("") }
             var description by remember { mutableStateOf("") }
@@ -78,12 +89,13 @@ fun new(navHostController: NavHostController){
                 ),
             )
 
+            SnackbarHost(hostState = snackbarHostState)
             Button(
                 onClick = {
                     val note = Note(title, description)
                     articulos.add(note)
 
-
+                    scope.launch { snackbarHostState.showSnackbar("nota add")}
 
                     description = ""
                     title = ""
@@ -94,8 +106,41 @@ fun new(navHostController: NavHostController){
             ) {
                 Text(text = "Add note", color = Color.Black)
             }
+
+            // Muestra el Snackbar si snackbarVisible es true
+
         }
     }
 }
 
 
+
+@Composable
+fun ShowSnackbarExample() {
+    // Variable para mostrar o esconder el Snackbar
+    var showSnackbar by remember { mutableStateOf(true) }
+
+    // Si showSnackbar es verdadero, mostramos el Snackbar
+
+
+    if (showSnackbar) {
+        // Muestra un Snackbar con un mensaje y una acción
+        Snackbar(
+            modifier = Modifier.padding(16.dp),
+            action = {
+                Button(
+                    onClick = {
+                        // Acción al hacer clic en el botón del Snackbar
+                        showSnackbar = false
+                    }
+                ) {
+                    Text("OK")
+                }
+            },
+            containerColor = Color.Red, // Cambia el color de fondo del Snackbar
+            contentColor = Color.White, // Cambia el color del texto del Snackbar
+        ) {
+            Text("Este es un mensaje de Snackbar")
+        }
+    }
+}

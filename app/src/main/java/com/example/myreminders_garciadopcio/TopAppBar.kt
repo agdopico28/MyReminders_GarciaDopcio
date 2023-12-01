@@ -1,11 +1,13 @@
 package com.example.myreminders_garciadopcio
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Lock
@@ -26,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -61,6 +64,11 @@ fun MyTopAppBar(navHostController: NavHostController){
                     tint = Color.Black
                 )
             }
+//            Image(
+//                painter = painterResource(id = R.drawable.logo_reminders),
+//                contentDescription = null,
+//                modifier = Modifier.size(10.dp)
+//            )
         },
         actions = {
             Row (){
@@ -119,14 +127,15 @@ fun TopAppBarNew(navHostController: NavHostController){
                     fontFamily = FontTittle,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .fillMaxWidth().padding(end = 50.dp)
+                        .fillMaxWidth()
+                        .padding(end = 50.dp)
                 )
 
         },
         navigationIcon = {
             IconButton(
                 onClick = {
-                    navHostController.navigate("Reminders_create")
+                    navHostController.navigate("Reminders_show")
                 }
             ) {
                 Icon(//Icono de las tres barras horizontales
