@@ -37,19 +37,21 @@ import kotlinx.coroutines.launch
 @Composable
 fun new(navHostController: NavHostController){
 
-    var snackbarVisible by remember { mutableStateOf(false) }
-    var context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+
     Scaffold (
-        snackbarHost ={ },
-        topBar = { TopAppBarNew(navHostController = navHostController) }
+        topBar = {
+            TopAppBarNew(navHostController = navHostController)
+        }
     ) {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = it.calculateTopPadding())
         ) {
+
             var title by remember { mutableStateOf("") }
             var description by remember { mutableStateOf("") }
 
@@ -90,6 +92,7 @@ fun new(navHostController: NavHostController){
             )
 
             SnackbarHost(hostState = snackbarHostState)
+
             Button(
                 onClick = {
                     val note = Note(title, description)
@@ -107,7 +110,6 @@ fun new(navHostController: NavHostController){
                 Text(text = "Add note", color = Color.Black)
             }
 
-            // Muestra el Snackbar si snackbarVisible es true
 
         }
     }

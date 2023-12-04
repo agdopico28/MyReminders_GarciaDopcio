@@ -1,3 +1,4 @@
 package com.example.myreminders_garciadopcio
 
-data class Note(val titulo: String, val description:String)
+//A data class called Note that stores a title and a description. It is used to generate notes that we will store later.
+data class Note(val title: String, val description:String)

@@ -23,16 +23,19 @@ import com.example.myreminders_garciadopcio.ui.theme.Color2
 fun MyFLoadinActionButtonAdd(navHostController: NavHostController){
     Box (Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
         FloatingActionButton(
+            //When you click the button, the application navigates to the "Reminders_new" screen
             onClick = {
                 navHostController.navigate("Reminders_new")
             },
+            //Change the color of the FAB
             containerColor = Color2,
+            //We modify the size of the button and the size of the icon that goes inside it
             modifier = Modifier
                 .padding(horizontal = 15.dp, vertical = 15.dp)
                 .height(50.dp)
                 .width(50.dp))
         {
-
+            //Specifications of the icon that goes inside the FAB
             Icon(
                 imageVector = Icons.Filled.Add,
                 contentDescription = "New Reminders",

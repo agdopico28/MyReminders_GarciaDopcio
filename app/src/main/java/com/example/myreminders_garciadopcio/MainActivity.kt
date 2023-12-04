@@ -1,4 +1,4 @@
-           package com.example.myreminders_garciadopcio
+package com.example.myreminders_garciadopcio
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -29,29 +29,30 @@ import com.example.myreminders_garciadopcio.ui.theme.Color1
 import com.example.myreminders_garciadopcio.ui.theme.MyReminders_GarciaDopcioTheme
 import kotlinx.coroutines.delay
 
-           class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyReminders_GarciaDopcioTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
 
-
                     NavHost(navController = navController, startDestination = "StartScreen") {
                         composable(
                             "StartScreen",
+                            //Transition between screens
                             exitTransition = {
                                 fadeOut(animationSpec = tween(1000))
                             },
                         ) {
                             startScreen(navController)
                         }
+
                         composable("Reminders_show") { reminders(navController) }
+
                         composable("Reminders_new") { new(navController) }
 
                     }

@@ -49,8 +49,11 @@ fun MyTopAppBar(navHostController: NavHostController){
             Text(
                 text = "Reminders",
                 color = Color.Black,
-                fontSize = 35.sp,
-                fontFamily = FontTittle
+                fontSize = 40.sp,
+                textAlign = TextAlign.Center,
+                fontFamily = FontTittle,
+                modifier = Modifier
+                    .fillMaxWidth()
             ) //nombre que aparece en la barra
         },
         navigationIcon = {
@@ -123,7 +126,7 @@ fun TopAppBarNew(navHostController: NavHostController){
         title = {
                 Text(text = "New Note",
                     color = Color.Black,
-                    fontSize = 35.sp,
+                    fontSize = 40.sp,
                     fontFamily = FontTittle,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
