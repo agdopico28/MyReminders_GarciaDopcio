@@ -53,7 +53,9 @@ class MainActivity : ComponentActivity() {
 
                         composable("Reminders_show") { reminders(navController) }
 
-                        composable("Reminders_new") { new(navController) }
+                        composable("New Note") { new(navController) }
+
+                        composable("Hidden") { hidden(navController) }
 
                     }
                 }
