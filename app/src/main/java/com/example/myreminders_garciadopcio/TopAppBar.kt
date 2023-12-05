@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MyTopAppBar(navHostController: NavHostController, drawerState: DrawerState, scope: CoroutineScope){
+fun MyTopAppBar(navHostController: NavHostController, drawerState: DrawerState, scope: CoroutineScope, onMenuIconClick: () -> Unit){
     var isMenuVisible by remember { mutableStateOf(false) }
     TopAppBar(//barra de menu parte superior de la pantalla
         title = {
@@ -68,7 +68,7 @@ fun MyTopAppBar(navHostController: NavHostController, drawerState: DrawerState, 
         navigationIcon = {
             IconButton(
                 onClick = {
-                    scope.launch { drawerState.open() }
+                    onMenuIconClick
                 }
             ) {
                 Icon(//Icono de las tres barras horizontales

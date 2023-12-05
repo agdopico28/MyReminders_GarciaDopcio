@@ -8,7 +8,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +32,7 @@ import com.example.myreminders_garciadopcio.ui.theme.MyReminders_GarciaDopcioThe
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -51,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             startScreen(navController)
                         }
 
-                        composable("Reminders_show") { reminders(navController) }
+                        composable("Reminders_show") { MyModalNavigationDrawer(navController) }
 
                         composable("New Note") { new(navController) }
 
@@ -63,5 +66,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-

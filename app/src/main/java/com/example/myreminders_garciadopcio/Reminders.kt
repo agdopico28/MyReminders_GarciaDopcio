@@ -6,25 +6,37 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.myreminders_garciadopcio.ui.theme.Color1
 import com.example.myreminders_garciadopcio.ui.theme.Color4
+import com.example.myreminders_garciadopcio.ui.theme.FontTittle
 
 
 val articulos = mutableStateListOf<Note>()
@@ -33,18 +45,72 @@ val articulos = mutableStateListOf<Note>()
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
-fun reminders(navHostController: NavHostController){
-    var drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
+fun reminders(navHostController: NavHostController, onMenuIconClick: () -> Unit){
     Scaffold (
-        topBar = { MyTopAppBar(navHostController = navHostController, drawerState, scope) }
-    ){
-        Column (Modifier.padding(top = it.calculateTopPadding())
+        topBar = {
+            TopAppBar(//barra de menu parte superior de la pantalla
+                title = {
+                    Text(
+                        text = "Reminders",
+                        color = Color.Black,
+                        fontSize = 40.sp,
+                        textAlign = TextAlign.Center,
+                        fontFamily = FontTittle,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 50.dp)
+                    ) //nombre que aparece en la barra
+                },
+
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            onMenuIconClick()
+                        }
+                    ) {
+                        Icon(//Icono de las tres barras horizontales
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = null,
+                            tint = Color.Black
+                        )
+                    }
+
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            navHostController.navigate("Hidden")
+                        }
+                    ) {
+                        Icon(//Icono de las tres barras horizontales
+                            imageVector = Icons.Default.Lock,
+                            contentDescription = null,
+                            tint = Color.Black
+                        )
+                    }
+                    IconButton(
+                        onClick = {
+                            navHostController.navigate("New Note")
+                        }
+                    ) {
+                        Icon(//Icono de las tres barras horizontales
+                            imageVector = Icons.Default.Add,
+                            contentDescription = null,
+                            tint = Color.Black
+                        )
+                    }
+                },
+
+                colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Color1)
+            )
+        }
+    ){ padding ->
+        Column (Modifier.padding(padding)
         ){
             PantallaPrincipal()
         }
 
-        MyModalNavigationDrawer(navController = navHostController, drawerState, scope)
+        // MyModalNavigationDrawer(navHostController)
         //MyFLoadinActionButtonAdd(navHostController = navHostController)
     }
 

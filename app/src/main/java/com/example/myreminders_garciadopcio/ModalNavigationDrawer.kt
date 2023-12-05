@@ -41,7 +41,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MyModalNavigationDrawer(navController: NavHostController,drawerState: DrawerState, scope:CoroutineScope){
+fun MyModalNavigationDrawer(navHostController: NavHostController){
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
 
     val items = listOf(
         Pair(Icons.Default.Add, "New Note"),
@@ -50,7 +52,10 @@ fun MyModalNavigationDrawer(navController: NavHostController,drawerState: Drawer
     val selectedItem = remember {
         mutableStateOf(items[0])
     }
-    ModalNavigationDrawer(drawerState = drawerState, //
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        gesturesEnabled = drawerState.isOpen,
         drawerContent = {
             ModalDrawerSheet {
                 Image(
@@ -62,20 +67,23 @@ fun MyModalNavigationDrawer(navController: NavHostController,drawerState: Drawer
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                items.forEach { (item,name) ->
+                items.forEach { (item, name) ->
                     NavigationDrawerItem(
                         icon = { Icon(item, contentDescription = null) },
-                        label = { Text(text =name) },
-                        selected = item == selectedItem.value.first,
+                        label = { Text(text = name) },
+                        selected = false,
                         onClick = {
-                            scope.launch { drawerState.close() }
-                            selectedItem.value = Pair (item,name)
-                            navController.navigate(name)
-                        })
+                            scope.launch {
+                                drawerState.close()
+                            }
+                            selectedItem.value = Pair(item, name)
+                            navHostController.navigate(name)
+                        }
+                    )
                 }
             }
         }, content = {
-//            reminders(navHostController = navController)
+            reminders(navHostController, onMenuIconClick = { scope.launch { drawerState.open() } })
         }
     )
 }
