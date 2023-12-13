@@ -1,13 +1,11 @@
 package com.example.myreminders_garciadopcio
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults.outlinedTextFieldColors
@@ -27,7 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
@@ -35,7 +32,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun new(navHostController: NavHostController){
+fun new(navHostController: NavHostController, viewModel: NotesViewModel){
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -68,7 +65,7 @@ fun new(navHostController: NavHostController){
                 colors = outlinedTextFieldColors(
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,
-                    textColor = LocalContentColor.current
+                    //textColor = LocalContentColor.current
                 ),
             )
 
@@ -87,16 +84,17 @@ fun new(navHostController: NavHostController){
                 colors = outlinedTextFieldColors(
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,
-                    textColor = LocalContentColor.current
+                    //textColor = LocalContentColor.current
                 ),
             )
+
 
             SnackbarHost(hostState = snackbarHostState)
 
             Button(
                 onClick = {
                     val note = Note(title, description)
-                    articulos.add(note)
+                    viewModel.addNote(note)
 
                     scope.launch { snackbarHostState.showSnackbar("nota add")}
 
@@ -117,32 +115,3 @@ fun new(navHostController: NavHostController){
 
 
 
-@Composable
-fun ShowSnackbarExample() {
-    // Variable para mostrar o esconder el Snackbar
-    var showSnackbar by remember { mutableStateOf(true) }
-
-    // Si showSnackbar es verdadero, mostramos el Snackbar
-
-
-    if (showSnackbar) {
-        // Muestra un Snackbar con un mensaje y una acción
-        Snackbar(
-            modifier = Modifier.padding(16.dp),
-            action = {
-                Button(
-                    onClick = {
-                        // Acción al hacer clic en el botón del Snackbar
-                        showSnackbar = false
-                    }
-                ) {
-                    Text("OK")
-                }
-            },
-            containerColor = Color.Red, // Cambia el color de fondo del Snackbar
-            contentColor = Color.White, // Cambia el color del texto del Snackbar
-        ) {
-            Text("Este es un mensaje de Snackbar")
-        }
-    }
-}

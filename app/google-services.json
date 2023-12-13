@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "148820817083",
+    "project_id": "recordatorios-e66d1",
+    "storage_bucket": "recordatorios-e66d1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148820817083:android:ab2e0ae8ad9237181ca59e",
+        "android_client_info": {
+          "package_name": "com.example.myreminders_garciadopcio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3XegYw3ryyeKlGLCIHZu7fEh3sMpuRgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -19,7 +19,7 @@ fun hidden(navHostController: NavHostController){
         Column (
             Modifier.padding(top = it.calculateTopPadding())
         ){
-            PantallaPrincipal()
+           // PantallaPrincipal()
         }
 
     }

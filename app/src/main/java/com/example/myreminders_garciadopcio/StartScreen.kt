@@ -71,6 +71,7 @@ fun startScreen(navController: NavController) {
             )
         }
 
+
         Text(
             text = buildAnnotatedString {
                 withStyle(style = SpanStyle(fontSize = 10.sp)) {
