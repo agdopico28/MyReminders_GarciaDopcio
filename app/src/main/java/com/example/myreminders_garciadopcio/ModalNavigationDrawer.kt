@@ -27,13 +27,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
+/**On this screen we create the ModalNavigationDrawer which is the screen that moves to one side*/
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MyModalNavigationDrawer(navHostController: NavHostController, viewModel: NotesViewModel) {
+/**Here we have the function that we created to make the ModalNavigationDrawer and then use it on the main screen*/
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    /**These are the items that we are going to have in the ModalDrawer*/
     val items = listOf(
         Pair(Icons.Default.Add, "New Note"),
         Pair(Icons.Default.Lock, "Hidden")
@@ -47,6 +50,8 @@ fun MyModalNavigationDrawer(navHostController: NavHostController, viewModel: Not
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
             ModalDrawerSheet {
+
+                /**Here we have the image that will be seen above the items*/
                 Image(
                     painter = painterResource(id = R.drawable.logo_reminders),
                     contentDescription = "Image",

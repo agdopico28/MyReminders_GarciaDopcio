@@ -35,9 +35,10 @@ import com.example.myreminders_garciadopcio.ui.theme.Color1
 import com.example.myreminders_garciadopcio.ui.theme.FontTittle
 import kotlinx.coroutines.delay
 
+/**This is the screen that appears a few seconds before the real application starts*/
 @Composable
 fun startScreen(navController: NavController) {
-
+/**On this screen we put the logo and the name of the author (my name)*/
     val my_name = "Amalia Garcia Dopcio"
     val value by rememberInfiniteTransition().animateFloat(
         initialValue = 0.5f,
@@ -50,9 +51,8 @@ fun startScreen(navController: NavController) {
             repeatMode = RepeatMode.Reverse
         )
     )
-    // Esta función muestra la pantalla de inicio.
 
-    // Puedes personalizar este contenido según tus necesidades.
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -85,14 +85,13 @@ fun startScreen(navController: NavController) {
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 10.dp),
             textAlign = TextAlign.Center
-//            fontFamily = FontTittle
         )
     }
 
-    // Utilizamos LaunchedEffect para iniciar un temporizador y cambiar a la siguiente pantalla.
+    // We use LaunchedEffect to start a timer and switch to the next screen.
     LaunchedEffect(true) {
-        delay(2000) // Cambié el tiempo de espera a 2 segundos para el ejemplo
-        // Navegamos a la pantalla "Reminders_create" después de que ha pasado el tiempo deseado.
+        delay(2000) //The time the screen waits
+        //We navigate to the “Reminders_create” screen after the desired time has passed.
         navController.navigate("Reminders_show")
     }
 }

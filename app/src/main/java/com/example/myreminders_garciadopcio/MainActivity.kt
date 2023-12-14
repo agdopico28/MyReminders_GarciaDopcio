@@ -17,26 +17,30 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.myreminders_garciadopcio.ui.theme.MyReminders_GarciaDopcioTheme
 import com.google.firebase.FirebaseApp
-
+/**We use this class to join all the previous screens*/
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        /**We initialize Firebase*/
         FirebaseApp.initializeApp(this)
 
         setContent {
 
             MyReminders_GarciaDopcioTheme {
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    /**We use the navigator so that the screens navigate between them.*/
                     val navController = rememberNavController()
                     val  viewModel = viewModel<NotesViewModel>()
                     viewModel.addNoteToLocalList()
 
                     NavHost(navController = navController, startDestination = "StartScreen") {
+
                         composable(
                             "StartScreen",
                             //Transition between screens

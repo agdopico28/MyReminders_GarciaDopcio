@@ -28,21 +28,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
-
+/**This is the screen that will allow us to enter new notes*/
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun new(navHostController: NavHostController, viewModel: NotesViewModel){
+/**In this function we put together everything we want to show on the screen*/
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     Scaffold (
+
         topBar = {
             TopAppBarNew(navHostController = navHostController)
         }
     ) {
-
+        /**In this column we create two OutlinedTextField so that the client can enter a title and a description for their new note*/
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -89,8 +91,10 @@ fun new(navHostController: NavHostController, viewModel: NotesViewModel){
             )
 
 
+            /**This SnackbarHost shows a message once the filled information has been sent*/
             SnackbarHost(hostState = snackbarHostState)
 
+            /**This button sends the information filled out by the client to the database.*/
             Button(
                 onClick = {
                     val note = Note(title, description)

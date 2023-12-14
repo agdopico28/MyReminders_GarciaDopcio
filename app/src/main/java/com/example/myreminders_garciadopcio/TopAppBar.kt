@@ -24,75 +24,13 @@ import androidx.navigation.NavHostController
 import com.example.myreminders_garciadopcio.ui.theme.Color1
 import com.example.myreminders_garciadopcio.ui.theme.FontTittle
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun MyTopAppBar(navHostController: NavHostController, onMenuIconClick: () -> Unit){
-
-    TopAppBar(//barra de menu parte superior de la pantalla
-        title = {
-            Text(
-                text = "Reminders",
-                color = Color.Black,
-                fontSize = 40.sp,
-                textAlign = TextAlign.Center,
-                fontFamily = FontTittle,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 50.dp)
-            ) //nombre que aparece en la barra
-        },
-
-        navigationIcon = {
-            IconButton(
-                onClick = {
-                    onMenuIconClick
-                }
-            ) {
-                Icon(//Icono de las tres barras horizontales
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = null,
-                    tint = Color.Black
-                )
-            }
-
-        },
-        actions = {
-            IconButton(
-                onClick = {
-                    navHostController.navigate("Hidden")
-                }
-            ) {
-                Icon(//Icono de las tres barras horizontales
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = null,
-                    tint = Color.Black
-                )
-            }
-            IconButton(
-                onClick = {
-                    navHostController.navigate("New Note")
-                }
-            ) {
-                Icon(//Icono de las tres barras horizontales
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null,
-                    tint = Color.Black
-                )
-            }
-        },
-
-        colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Color1)
-    )
-
-
-}
+/**In this kt I store all the functions of TopAppBar*/
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TopAppBarNew(navHostController: NavHostController){
+/**In this function I put the name and an icon, it will navigate to the main screen.*/
     TopAppBar(
         title = {
             Text(text = "New Note",
@@ -128,6 +66,7 @@ fun TopAppBarNew(navHostController: NavHostController){
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TopAppBarHidden(navHostController: NavHostController){
+/**In this function I put the name and an icon, it will navigate to the main screen.*/
     TopAppBar(
         title = {
             Text(text = "Hidden Notes",

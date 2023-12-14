@@ -134,32 +134,10 @@ class NotesViewModel : ViewModel() {
         //Success message
         Log.d("Firestore", "Note state updated successfully")
     }
-    private fun removeNoteFromLocalList(note: Note) {
-        notesList.remove(note)
-    }
 
-    fun loadAllNotes() {
-        viewModelScope.launch {
-            try {
-                val allNotes = db.collection("notes")
-                    .get()
-                    .await()
-                    .documents
-                    .mapNotNull { document ->
-                        //document.toObject(Note::class.java)?.apply { id = document.id }
-                    }
-            } catch (e: Exception) {
-                Log.w("Firestore", "Error loading all notes", e)
-            }
-        }
-    }
+
+
 }
 
 
-data class Note(
-    var id: String,
-    val title: String = "",
-    val description: String = "",
-    val state: Boolean = false
-)
 

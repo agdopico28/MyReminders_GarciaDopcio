@@ -36,15 +36,16 @@ import com.example.myreminders_garciadopcio.ui.theme.Color1
 import com.example.myreminders_garciadopcio.ui.theme.Color4
 import com.example.myreminders_garciadopcio.ui.theme.FontTittle
 
-
+/**This is the main screen where all the reminders will be shown*/
 
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 fun reminders(navHostController: NavHostController, onMenuIconClick: () -> Unit, viewModel: NotesViewModel){
+/**In this function we will unite everything necessary*/
     Scaffold (
         topBar = {
-            TopAppBar(//barra de menu parte superior de la pantalla
+            TopAppBar(//menu bar top of screen
                 title = {
                     Text(
                         text = "Reminders",
@@ -55,7 +56,7 @@ fun reminders(navHostController: NavHostController, onMenuIconClick: () -> Unit,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 50.dp)
-                    ) //nombre que aparece en la barra
+                    ) //name that appears in the bar and its modifications
                 },
 
                 navigationIcon = {
@@ -64,7 +65,7 @@ fun reminders(navHostController: NavHostController, onMenuIconClick: () -> Unit,
                             onMenuIconClick()
                         }
                     ) {
-                        Icon(//Icono de las tres barras horizontales
+                        Icon(//Three horizontal bars icon
                             imageVector = Icons.Default.Menu,
                             contentDescription = null,
                             tint = Color.Black
@@ -78,7 +79,7 @@ fun reminders(navHostController: NavHostController, onMenuIconClick: () -> Unit,
                             navHostController.navigate("Hidden")
                         }
                     ) {
-                        Icon(//Icono de las tres barras horizontales
+                        Icon(//padlock icon
                             imageVector = Icons.Default.Lock,
                             contentDescription = null,
                             tint = Color.Black
@@ -89,7 +90,7 @@ fun reminders(navHostController: NavHostController, onMenuIconClick: () -> Unit,
                             navHostController.navigate("New Note")
                         }
                     ) {
-                        Icon(//Icono de las tres barras horizontales
+                        Icon(
                             imageVector = Icons.Default.Add,
                             contentDescription = null,
                             tint = Color.Black
@@ -101,20 +102,22 @@ fun reminders(navHostController: NavHostController, onMenuIconClick: () -> Unit,
             )
         }
     ){ padding ->
+
+        /**
+         * In this column we call the ScreenPrincipalHidden method and with
+         * the modifier we leave the space occupied by the TopAppBar
+         */
         Column (Modifier.padding(padding)
         ){
-            PantallaPrincipal(viewModel)
+            ScreenPrincipal(viewModel)
         }
-
-        // MyModalNavigationDrawer(navHostController)
-        //MyFLoadinActionButtonAdd(navHostController = navHostController)
     }
 
 }
 
 @Composable
-fun PantallaPrincipal(viewModel: NotesViewModel) {
-
+fun ScreenPrincipal(viewModel: NotesViewModel) {
+/**This function goes through the list of notes and checks that the state of the note is other than true, if so it prints them*/
 
     LazyColumn() {
         items(viewModel.notesList) { note ->
