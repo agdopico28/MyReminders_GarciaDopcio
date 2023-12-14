@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
 
                         composable("New Note") { new(navController, viewModel) }
 
-                        composable("Hidden") { hidden(navController) }
+                        composable("Hidden") { hidden(navController, viewModel) }
 
                     }
                 }

@@ -1,23 +1,13 @@
 package com.example.myreminders_garciadopcio
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.UUID
 class NotesViewModel : ViewModel() {
     val notesList = mutableStateListOf<Note>()
@@ -28,9 +18,9 @@ class NotesViewModel : ViewModel() {
     fun addNote(note: Note) {
 
         val newNote = hashMapOf(
+            "id" to note.id,
             "title" to note.title,
             "description" to note.description,
-            "id" to note.id,
             "state" to note.state
         )
 
@@ -56,10 +46,6 @@ class NotesViewModel : ViewModel() {
             .delete()
             .addOnSuccessListener {
                 // Manejar el éxito, por ejemplo, actualizar la UI o el estado local
-
-//                for(note in ){
-//
-//                }
                 Log.d("Firestore", "DocumentSnapshot successfully deleted!")
             }
             .addOnFailureListener { e ->
@@ -81,7 +67,7 @@ class NotesViewModel : ViewModel() {
                     Log.d("Firestore", "Title: $title, Description: $description, State: $state")
 
 
-                    val newNote = Note(note.id, title, description, state)
+                    val newNote = Note( note.id,title, description, state)
 
                     notesList.add(newNote)
                 }
@@ -94,6 +80,60 @@ class NotesViewModel : ViewModel() {
             }
     }
 
+
+    fun updateNoteTrue(note: Note) {
+        val noteRef = notesCollection.document(note.id)
+
+        // Actualiza el estado en Firestore
+        noteRef
+            .update("state", true)
+            .addOnSuccessListener {
+                // Manejar el éxito, por ejemplo, actualizar la UI o el estado local
+                Log.d("Firestore", "DocumentSnapshot successfully updated!")
+            }
+            .addOnFailureListener { e ->
+                // Manejar el error
+                Log.w("Firestore", "Error updating document", e)
+            }
+
+        // Actualiza el estado en la lista local
+        val updatedNote = note.copy(state = true)
+        val noteIndex = notesList.indexOf(note)
+
+        if (noteIndex != -1) {
+            notesList[noteIndex] = updatedNote
+        }
+
+        //Success message
+        Log.d("Firestore", "Note state updated successfully")
+    }
+
+    fun updateNoteFalse(note: Note) {
+        val noteRef = notesCollection.document(note.id)
+
+        // Actualiza el estado en Firestore
+        noteRef
+            .update("state", false)
+            .addOnSuccessListener {
+                // Manejar el éxito, por ejemplo, actualizar la UI o el estado local
+                Log.d("Firestore", "DocumentSnapshot successfully updated!")
+            }
+            .addOnFailureListener { e ->
+                // Manejar el error
+                Log.w("Firestore", "Error updating document", e)
+            }
+
+        // Actualiza el estado en la lista local
+        val updatedNote = note.copy(state = false)
+        val noteIndex = notesList.indexOf(note)
+
+        if (noteIndex != -1) {
+            notesList[noteIndex] = updatedNote
+        }
+
+        //Success message
+        Log.d("Firestore", "Note state updated successfully")
+    }
     private fun removeNoteFromLocalList(note: Note) {
         notesList.remove(note)
     }
@@ -106,7 +146,7 @@ class NotesViewModel : ViewModel() {
                     .await()
                     .documents
                     .mapNotNull { document ->
-                        document.toObject(Note::class.java)?.apply { id = document.id }
+                        //document.toObject(Note::class.java)?.apply { id = document.id }
                     }
             } catch (e: Exception) {
                 Log.w("Firestore", "Error loading all notes", e)
@@ -117,7 +157,7 @@ class NotesViewModel : ViewModel() {
 
 
 data class Note(
-    var id: String = UUID.randomUUID().toString(),
+    var id: String,
     val title: String = "",
     val description: String = "",
     val state: Boolean = false
