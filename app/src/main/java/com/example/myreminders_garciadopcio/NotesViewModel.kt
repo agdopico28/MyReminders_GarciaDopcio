@@ -1,16 +1,11 @@
 package com.example.myreminders_garciadopcio
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.firestore
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.Query
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import java.util.UUID
 class NotesViewModel : ViewModel() {
     //Mutable list of notes that will be used to locally store notes retrieved from Firestore
     val notesList = mutableStateListOf<Note>()
@@ -19,6 +14,7 @@ class NotesViewModel : ViewModel() {
     private val db = Firebase.firestore
     private val notesCollection = db.collection("notes")
 
+    @SuppressLint("SuspiciousIndentation")
     fun addNote(note: Note) {
     /**Add a note to the list*/
 
