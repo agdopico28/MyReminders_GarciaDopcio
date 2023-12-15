@@ -23,7 +23,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -81,8 +83,8 @@ fun new(navHostController: NavHostController, viewModel: NotesViewModel){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
-                    .height(250.dp), // Ajusta según sea necesario
-                singleLine = false,// Ahora permite varias líneas
+                    .height(200.dp),
+                singleLine = false,
                 colors = outlinedTextFieldColors(
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,
@@ -90,9 +92,8 @@ fun new(navHostController: NavHostController, viewModel: NotesViewModel){
                 ),
             )
 
-
             /**This SnackbarHost shows a message once the filled information has been sent*/
-            SnackbarHost(hostState = snackbarHostState)
+            SnackbarHost(hostState = snackbarHostState, modifier = Modifier.align(CenterHorizontally))
 
             /**This button sends the information filled out by the client to the database.*/
             Button(
@@ -100,14 +101,14 @@ fun new(navHostController: NavHostController, viewModel: NotesViewModel){
                     val note = Note(title, description)
                     viewModel.addNote(note)
 
-                    scope.launch { snackbarHostState.showSnackbar("nota add")}
+                    scope.launch { snackbarHostState.showSnackbar("The note has been added successfully")}
 
                     description = ""
                     title = ""
                 },
                 modifier = Modifier
                     .padding(10.dp)
-                    .align(Alignment.CenterHorizontally)
+                    .align(CenterHorizontally)
             ) {
                 Text(text = "Add note", color = Color.Black)
             }

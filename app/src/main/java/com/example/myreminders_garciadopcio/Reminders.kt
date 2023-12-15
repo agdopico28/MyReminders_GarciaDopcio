@@ -161,13 +161,6 @@ fun ScreenPrincipal(viewModel: NotesViewModel) {
                             )
                         }
 
-                        //                    Column(
-                        //                        modifier = Modifier
-                        //                            .weight(0.1f)
-                        //                            .background(Color.Gray)
-                        //                    ){}
-
-
                         Column(
                             modifier = Modifier
                                 .weight(0.1f)
@@ -176,7 +169,6 @@ fun ScreenPrincipal(viewModel: NotesViewModel) {
                             IconButton(
                                 onClick = {
                                     viewModel.deleteNote(note)
-                                    viewModel.addNoteToLocalList()
                                 }
                             ) {
                                 Icon(

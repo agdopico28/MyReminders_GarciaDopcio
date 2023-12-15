@@ -105,7 +105,6 @@ fun ScreenPrincipalHidde(viewModel: NotesViewModel) {
                             IconButton(
                                 onClick = {
                                     viewModel.deleteNote(note)
-                                    viewModel.addNoteToLocalList()
                                 }
                             ) {
                                 Icon(

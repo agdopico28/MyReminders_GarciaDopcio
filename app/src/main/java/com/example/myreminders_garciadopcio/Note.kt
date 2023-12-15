@@ -4,7 +4,7 @@ package com.example.myreminders_garciadopcio
 */
 
 data class Note(
-    var id: String,
+    //var id: String,
     val title: String = "",
     val description: String = "",
     val state: Boolean = false
